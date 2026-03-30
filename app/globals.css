@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 33% 98%;
+    --foreground: 229 20% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 229 20% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 229 20% 14%;
+    --primary: 268 94% 75%;
+    --primary-foreground: 248 33% 10%;
+    --secondary: 230 28% 96%;
+    --secondary-foreground: 229 20% 14%;
+    --muted: 230 26% 95%;
+    --muted-foreground: 228 10% 43%;
+    --accent: 230 26% 95%;
+    --accent-foreground: 229 20% 14%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 230 22% 87%;
+    --input: 230 22% 87%;
+    --ring: 268 94% 75%;
+    --radius: 0.75rem;
+    --sidebar: 240 18% 10%;
+    --sidebar-foreground: 220 15% 92%;
+    --sidebar-primary: 268 94% 75%;
+    --sidebar-primary-foreground: 248 33% 10%;
+    --sidebar-accent: 240 9% 16%;
+    --sidebar-accent-foreground: 220 15% 92%;
+    --sidebar-border: 240 7% 20%;
+    --sidebar-ring: 268 94% 75%;
+  }
+
+  .dark {
+    --background: 230 34% 6%;
+    --foreground: 220 15% 96%;
+    --card: 230 34% 8%;
+    --card-foreground: 220 15% 96%;
+    --popover: 231 30% 10%;
+    --popover-foreground: 220 15% 96%;
+    --primary: 268 94% 75%;
+    --primary-foreground: 248 33% 10%;
+    --secondary: 230 19% 16%;
+    --secondary-foreground: 220 15% 96%;
+    --muted: 230 15% 14%;
+    --muted-foreground: 225 8% 69%;
+    --accent: 230 15% 18%;
+    --accent-foreground: 220 15% 96%;
+    --destructive: 0 63% 38%;
+    --destructive-foreground: 220 15% 96%;
+    --border: 230 15% 18%;
+    --input: 230 15% 18%;
+    --ring: 268 94% 75%;
+    --sidebar: 240 18% 10%;
+    --sidebar-foreground: 220 15% 92%;
+    --sidebar-primary: 268 94% 75%;
+    --sidebar-primary-foreground: 248 33% 10%;
+    --sidebar-accent: 240 9% 16%;
+    --sidebar-accent-foreground: 220 15% 92%;
+    --sidebar-border: 240 7% 20%;
+    --sidebar-ring: 268 94% 75%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading), sans-serif;
+  }
+}
+
+.subtle-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.card-reveal {
+  animation: card-in 450ms ease-out;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
