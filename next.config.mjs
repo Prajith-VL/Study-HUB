@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typedRoutes: true
+  distDir: ".next-build",
+  experimental: {
+    webpackBuildWorker: false
+  }
 }
 
 export default nextConfig

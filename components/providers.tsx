@@ -3,6 +3,8 @@
 import type { ReactNode } from "react"
 import { ThemeProvider } from "next-themes"
 
+import { ToastProvider } from "@/components/ui/toast"
+
 type ProvidersProps = {
   children: ReactNode
 }
@@ -10,7 +12,7 @@ type ProvidersProps = {
 export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-      {children}
+      <ToastProvider>{children}</ToastProvider>
     </ThemeProvider>
   )
 }

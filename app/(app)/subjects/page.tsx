@@ -1,20 +1,14 @@
-import { FoundationSection } from "@/components/app-shell/foundation-section"
 import { PageHeader } from "@/components/app-shell/page-header"
+import { SubjectsBoard } from "@/components/subjects/subjects-board"
+import { getSubjects } from "@/lib/subjects/queries"
 
-export default function SubjectsPage() {
+export default async function SubjectsPage() {
+  const subjects = await getSubjects()
+
   return (
-    <div className="space-y-8 card-reveal">
-      <PageHeader title="Subjects" subtitle="Organize all courses, goals, and study tracks in one place." />
-      <FoundationSection
-        title="Subjects Module Scaffold"
-        description="This route is ready for Supabase-backed CRUD integration."
-        points={[
-          "Create subject entities with title, credits, and semester.",
-          "Attach progress metadata and milestone checkpoints.",
-          "Connect notes and planner tasks via relational IDs."
-        ]}
-      />
+    <div className="space-y-8">
+      <PageHeader title="Subjects" subtitle="Create, organize, and track semester progress for every subject." />
+      <SubjectsBoard initialSubjects={subjects} />
     </div>
   )
 }
-

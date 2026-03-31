@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/server"
 
 import { logout } from "./actions"
 
+export const dynamic = "force-dynamic"
+
 type AppLayoutProps = {
   children: ReactNode
 }
@@ -20,5 +22,9 @@ export default async function ProtectedAppLayout({ children }: AppLayoutProps) {
     redirect("/login")
   }
 
-  return <AppShell userEmail={user.email ?? "unknown@studyhub.app"} logoutAction={logout}>{children}</AppShell>
+  return (
+    <AppShell userEmail={user.email ?? "unknown@studyhub.app"} logoutAction={logout}>
+      <div className="page-fade">{children}</div>
+    </AppShell>
+  )
 }

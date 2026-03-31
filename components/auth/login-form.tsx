@@ -23,6 +23,7 @@ export function LoginForm() {
   const redirectTo = (allowedRoutes.find((route) => route === requestedPath) ?? "/dashboard") as Route
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isGooglePending, setIsGooglePending] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -48,6 +49,27 @@ export function LoginForm() {
 
     router.replace(redirectTo)
     router.refresh()
+  }
+
+  async function handleGoogleAuth() {
+    setError(null)
+    setIsGooglePending(true)
+    try {
+      const supabase = createClient()
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
+      })
+      if (oauthError) {
+        setError(oauthError.message)
+        setIsGooglePending(false)
+      }
+    } catch (oauthError) {
+      setError((oauthError as Error).message)
+      setIsGooglePending(false)
+    }
   }
 
   return (
@@ -90,7 +112,7 @@ export function LoginForm() {
               <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-500">Or continue with</span>
               <Separator className="bg-white/10" />
             </div>
-            <OAuthRow />
+            <OAuthRow onGoogle={() => void handleGoogleAuth()} isGooglePending={isGooglePending} />
           </div>
 
           <p className="pt-1 text-center text-sm text-zinc-400">

@@ -1,16 +1,15 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { createServerClient } from "@supabase/ssr"
 
+import { getPublicEnvOrNull } from "@/lib/env"
 import type { Database } from "@/types/database"
 
 const protectedPaths = ["/dashboard", "/subjects", "/notes", "/planner", "/analytics", "/settings"]
 const authPaths = ["/login", "/signup"]
 
 export async function updateSession(request: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!url || !anonKey) {
+  const env = getPublicEnvOrNull()
+  if (!env) {
     return NextResponse.next({ request })
   }
 
@@ -18,7 +17,7 @@ export async function updateSession(request: NextRequest) {
     request
   })
 
-  const supabase = createServerClient<Database>(url, anonKey, {
+  const supabase = createServerClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
       cookies: {
         getAll() {
           return request.cookies.getAll()

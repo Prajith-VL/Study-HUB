@@ -1,20 +1,21 @@
-import { FoundationSection } from "@/components/app-shell/foundation-section"
 import { PageHeader } from "@/components/app-shell/page-header"
+import { NotesBoard } from "@/components/notes/notes-board"
+import { getNotes } from "@/lib/notes/queries"
+import { getSubjects } from "@/lib/subjects/queries"
 
-export default function NotesPage() {
+export default async function NotesPage() {
+  const [notes, subjects] = await Promise.all([getNotes(), getSubjects()])
+
   return (
-    <div className="space-y-8 card-reveal">
-      <PageHeader title="Notes" subtitle="Capture ideas, lecture summaries, and revision packs." />
-      <FoundationSection
-        title="Notes Module Scaffold"
-        description="Configured for fast extension into rich editor workflows."
-        points={[
-          "Ready for markdown or block-style editor integration.",
-          "Supports linking notes to subjects and planner tasks.",
-          "Prepared for autosave and version history additions."
-        ]}
+    <div className="space-y-8">
+      <PageHeader
+        title="Notes"
+        subtitle="Markdown notes with autosave, pinning, tags, and subject organization."
+      />
+      <NotesBoard
+        initialNotes={notes}
+        subjects={subjects.map((subject) => ({ id: subject.id, name: subject.name }))}
       />
     </div>
   )
 }
-
